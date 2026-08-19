@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vesara Capital</title>
+<meta name="description" content="Vesara Capital — an independent house of research and disciplined capital allocation.">
+<meta name="theme-color" content="#020D2B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23020D2B'/><text x='16' y='23' font-family='Georgia,serif' font-size='19' letter-spacing='1' fill='%23F2A536' text-anchor='middle'>V</text></svg>">
+<style>
+:root{
+  --bg:#020B22;
+  --bg2:#030e1e;
+  --ink:#F4F1E8;              /* warm ivory — dominant */
+  --ink-soft:#D9D6CC;
+  --muted:#8390B0;            /* muted blue — information */
+  --muted2:#5F6B90;
+  --brass:#C3AC85;            /* soft brass — structure */
+  --brass-dim:rgba(195,172,133,.62);
+  --amber:#F2A536;           /* true amber — importance only */
+  --amber2:#C9812A;
+  --line:rgba(190,168,130,.12);      /* fine brass hairline */
+  --line-soft:rgba(190,168,130,.07);
+  --hair:rgba(190,168,130,.10);
+  --panel:rgba(4,10,26,.42);          /* recessed shared surface */
+  --panel-warm:rgba(46,34,22,.34);    /* light caught — warm, not bright */
+  --green:#68B08C;
+  --red:#C97A6E;
+  --sans:'Jost',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --edge:clamp(22px,4.5vw,58px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--muted); font-family:var(--sans); line-height:1.55;
+  overflow-x:hidden; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+/* ---- Background as material: depth, not a graphic ---- */
+body::before{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(125% 78% at 50% -10%, rgba(16,36,76,.16), transparent 58%),
+    radial-gradient(72% 55% at 50% 48%, rgba(52,40,28,.035), transparent 68%),
+    linear-gradient(to bottom, #020A20 0%, #010719 58%, #020611 100%),
+    radial-gradient(150% 120% at 50% 44%, transparent 54%, rgba(0,0,0,.72));
+}
+body::after{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.04; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size:150px 150px;
+}
+main{position:relative;z-index:1}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+::selection{background:rgba(242,165,54,.20);color:var(--ink)}
+:focus-visible{outline:1px solid var(--amber);outline-offset:3px}
+
+/* ---------- Header / navigation ---------- */
+.site-header{
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:24px var(--edge);
+  border-bottom:1px solid transparent;
+  background:linear-gradient(to bottom, rgba(2,9,28,.78), rgba(2,9,28,0));
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  transition:background .6s var(--ease), padding .6s var(--ease);
+}
+.site-header.scrolled{
+  background:rgba(2,8,24,.42);
+  backdrop-filter:blur(26px) saturate(132%);
+  -webkit-backdrop-filter:blur(26px) saturate(132%);
+  border-bottom:1px solid transparent;
+  padding-top:17px;
+  padding-bottom:17px;
+  box-shadow:0 14px 42px rgba(0,0,0,.22);
+}
+.brand{display:flex;flex-direction:column;gap:4px;min-width:150px}
+.brand .name{font-family:var(--serif);font-weight:500;font-size:27px;letter-spacing:.36em;color:var(--ink);line-height:1;text-indent:.4em}
+.brand .sub{font-size:9px;letter-spacing:.54em;color:var(--amber);text-indent:.56em}
+.nav{display:flex;gap:clamp(22px,2.5vw,38px);align-items:center}
+.nav a{position:relative;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);padding:6px 0;transition:color .4s var(--ease)}
+.nav a:not(.header-cta)::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--amber);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.nav a:not(.header-cta):hover,.nav a.active{color:var(--ink)}
+.nav a.active::after,.nav a:not(.header-cta):hover::after{transform:scaleX(1)}
+.header-cta{border:1px solid rgba(242,165,54,.48);padding:12px 21px;color:var(--amber)!important;letter-spacing:.17em;transition:background .4s var(--ease),color .4s var(--ease),border-color .4s var(--ease)}
+.header-cta:hover{background:var(--amber);color:var(--bg)!important;border-color:var(--amber)}
+.mobile-toggle{display:none;background:none;border:0;color:var(--ink);width:34px;height:26px;position:relative;cursor:pointer}
+.mobile-toggle span{position:absolute;left:2px;right:2px;height:1.3px;background:var(--ink);transition:transform .4s var(--ease),opacity .3s var(--ease)}
+.mobile-toggle span:nth-child(1){top:6px}.mobile-toggle span:nth-child(2){top:13px}.mobile-toggle span:nth-child(3){top:20px}
+body.menu-open .mobile-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+body.menu-open .mobile-toggle span:nth-child(2){opacity:0}
+body.menu-open .mobile-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;z-index:45;background:rgba(2,9,26,.98);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;flex-direction:column;justify-content:center;gap:6px;padding:0 var(--edge);opacity:0;visibility:hidden;transition:opacity .55s var(--ease),visibility .55s}
+body.menu-open .mobile-menu{opacity:1;visibility:visible}
+.mobile-menu a{font-family:var(--serif);font-size:clamp(30px,7vw,46px);font-weight:400;color:var(--muted);padding:13px 0;border-bottom:1px solid var(--hair);transition:color .35s var(--ease),padding-left .35s var(--ease)}
+.mobile-menu a:hover{color:var(--amber);padding-left:8px}
+
+/* ---------- Section scaffolding ---------- */
+.snap{height:100svh;min-height:730px;scroll-snap-align:start;position:relative}
+.inner{width:min(1360px,90vw);margin:0 auto}
+.section-inner{height:100%;display:flex;flex-direction:column;justify-content:center;padding:10vh 0 7vh}
+.section-top{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:clamp(34px,5vh,60px)}
+.eyebrow{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--amber);font-weight:500}
+.section-title{font-family:var(--serif);font-weight:300;font-size:clamp(32px,4vw,58px);line-height:1.1;color:var(--ink);margin-top:18px;letter-spacing:.006em}
+.section-side{font-size:12.5px;line-height:1.7;max-width:360px;text-align:right;color:var(--muted2)}
+.link-amber{display:inline-flex;align-items:center;gap:.8em;color:var(--amber);font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+.link-amber .arw{transition:transform .45s var(--ease)}
+.link-amber:hover .arw{transform:translateX(7px)}
+
+/* ---------- Hero (private lounge, almost still) ---------- */
+.hero{overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-30%;z-index:0;pointer-events:none;background:radial-gradient(32% 28% at 50% 47%, rgba(242,165,54,.055), transparent 64%);animation:drift 60s ease-in-out infinite}
+@keyframes drift{0%{transform:translate(-1.5%,-1%) scale(1)}50%{transform:translate(2%,1.5%) scale(1.05)}100%{transform:translate(-1.5%,-1%) scale(1)}}
+.hero .inner{position:relative;z-index:1;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%}
+.hero-title{font-family:var(--serif);font-size:clamp(74px,11vw,158px);font-weight:400;letter-spacing:.28em;color:var(--ink);line-height:.92;text-indent:.28em}
+.hero-sub{font-size:clamp(13px,1.4vw,18px);letter-spacing:.66em;color:var(--amber);margin-top:30px;text-indent:.66em}
+.hero-rule{width:74px;height:1px;margin:40px 0 0;background:linear-gradient(90deg,transparent,var(--amber),transparent);box-shadow:0 0 14px rgba(242,165,54,.35);transform:scaleX(0);transition:transform 1.4s var(--ease) .9s}
+.hero-link{margin-top:44px;color:var(--amber);font-size:12px;letter-spacing:.28em;text-transform:uppercase;position:relative;padding-bottom:11px;display:inline-flex;align-items:center;gap:.8em}
+.hero-link .arw{transition:transform .5s var(--ease)}
+.hero-link:hover .arw{transform:translateX(9px)}
+.hero-link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--amber);transform:scaleX(.5);transform-origin:center;transition:transform .5s var(--ease)}
+.hero-link:hover::after{transform:scaleX(1)}
+.hero-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted2);display:flex;flex-direction:column;align-items:center;gap:12px;z-index:1}
+.hero-hint .rail{width:1px;height:42px;background:linear-gradient(var(--muted2),transparent);position:relative;overflow:hidden}
+.hero-hint .rail::after{content:"";position:absolute;top:-12px;left:0;width:1px;height:12px;background:var(--amber);animation:cue 3.4s var(--ease) infinite}
+@keyframes cue{0%{top:-14px;opacity:0}30%{opacity:1}100%{top:42px;opacity:0}}
+.hero-title,.hero-sub,.hero-link,.hero-hint{opacity:0;transform:translateY(18px);transition:opacity 1.4s var(--ease),transform 1.6s var(--ease)}
+.hero.entered .hero-title{opacity:1;transform:none;transition-delay:.25s}
+.hero.entered .hero-sub{opacity:1;transform:none;transition-delay:.75s}
+.hero.entered .hero-rule{transform:scaleX(1)}
+.hero.entered .hero-link{opacity:1;transform:none;transition-delay:1.35s}
+.hero.entered .hero-hint{opacity:.85;transform:translateX(-50%);transition-delay:1.85s}
+
+/* ---------- Thesis — one connected composition ---------- */
+.thesis-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.thesis-card{position:relative;background:var(--panel);padding:32px 22px 26px;min-height:48vh;display:flex;flex-direction:column;transition:background .7s var(--ease)}
+.thesis-card:hover{background:var(--panel-warm)}
+.t-head{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.t-no{font-family:var(--serif);font-size:19px;font-weight:500;letter-spacing:.04em;color:var(--brass);line-height:1;transition:color .6s var(--ease)}
+.thesis-card:hover .t-no{color:var(--amber)}
+.t-rule{flex:1;height:1px;background:var(--hair)}
+.t-title{font-size:13px;color:var(--ink);line-height:1.25;text-transform:uppercase;letter-spacing:.09em;font-weight:400}
+.t-copy{font-size:13px;color:var(--muted);margin-top:14px;line-height:1.6;min-height:44px}
+.graphic{margin-top:auto;padding-top:22px;display:flex;flex-direction:column;justify-content:flex-end}
+.t-caption{margin-top:16px;display:flex;gap:9px;align-items:baseline;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted2);line-height:1.4}
+.t-caption .fig{color:var(--brass-dim);white-space:nowrap}
+
+.bars{display:flex;align-items:flex-end;gap:16px;width:100%;height:96px}
+.bar{flex:1;background:linear-gradient(180deg,#6E7B99,#525d78);border-radius:1px 1px 0 0;transform:scaleY(0);transform-origin:bottom;transition:transform 1.2s var(--ease)}
+.bar.amber{background:linear-gradient(180deg,var(--amber),var(--amber2))}
+.bar.a{height:40%}.bar.b{height:62%}.bar.c{height:84%}
+.thesis-card.in .bar{transform:scaleY(1)}
+.thesis-card.in .bar:nth-child(2){transition-delay:.1s}.thesis-card.in .bar:nth-child(3){transition-delay:.2s}
+
+.chart{height:104px}
+.chart svg{width:100%;height:100%;overflow:visible;display:block}
+.chart path{fill:none;stroke:var(--amber);stroke-width:1.25;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
+.chart path.secondary{stroke:#8A98B8;stroke-width:1.15;opacity:.78}
+.market-card .chart path{stroke-width:1.15}
+.chart .area{stroke:none}
+.chart .dot{stroke:none}
+
+.flow{gap:18px;width:100%;font-size:11px;color:var(--muted);justify-content:center}
+.flow-row{display:flex;align-items:center;gap:12px}
+.flow-box{border:1px solid var(--hair);padding:11px 9px;text-align:center;flex:0 0 42%;color:var(--ink);font-size:11px;line-height:1.3}
+.flow-box em{display:block;font-style:normal;color:var(--muted2);font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-top:5px}
+.flow-arrow{color:var(--brass);font-size:14px;flex:0 0 auto}
+.flow-out{font-size:11px;color:var(--muted);flex:1}
+
+.sector{justify-content:flex-end}
+.sector-lead{font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--brass);margin-bottom:12px}
+.sector-items{color:var(--ink);font-size:13px;line-height:2.05;letter-spacing:.01em}
+
+/* ---------- Research — private memorandum ---------- */
+.research-layout{display:grid;grid-template-columns:330px 1fr;gap:clamp(44px,6vw,92px);align-items:center}
+.research-intro h3{font-family:var(--serif);font-weight:300;font-size:clamp(42px,4.8vw,72px);color:var(--ink);line-height:1.12;margin-top:20px;letter-spacing:.004em}
+.research-intro .link-amber{margin-top:36px}
+.research-list{border-top:1px solid var(--line)}
+.research-row{display:grid;grid-template-columns:150px 150px 1fr auto;align-items:center;gap:26px;padding:30px 8px;border-bottom:1px solid var(--line);transition:background .5s var(--ease),padding-left .5s var(--ease)}
+.research-row:hover{background:var(--panel-warm);padding-left:16px}
+.date{font-family:var(--serif);font-size:17px;font-weight:500;letter-spacing:.06em;color:var(--ink-soft);white-space:nowrap}
+.tag{display:inline-block;width:max-content;border:1px solid var(--line-soft);padding:5px 11px;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass-dim)}
+.r-title{font-family:var(--serif);font-weight:400;font-size:clamp(19px,1.9vw,27px);color:var(--ink);line-height:1.16;letter-spacing:.004em;transition:color .4s var(--ease)}
+.research-row:hover .r-title{color:#FBF4E4}
+.pdf{justify-self:end;display:inline-flex;align-items:center;gap:10px;color:var(--amber);font-size:10px;letter-spacing:.28em;text-transform:uppercase;white-space:nowrap}
+.pdf .arw{transition:transform .45s var(--ease)}
+.research-row:hover .pdf .arw{transform:translateX(6px)}
+
+/* ---------- Markets — an information room ---------- */
+.market-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.market-card{position:relative;background:var(--panel);padding:24px 20px 20px;min-height:300px;display:flex;flex-direction:column;transition:background .7s var(--ease)}
+.market-card:hover{background:var(--panel-warm)}
+.market-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.market-name{font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--brass-dim)}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);opacity:0;transition:opacity .6s var(--ease)}
+.market-card.live .live-dot{opacity:1;animation:pulse 3s var(--ease) infinite}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:.95}}
+.market-value{display:flex;align-items:baseline;gap:10px;margin-top:16px}
+.market-value strong{font-family:var(--serif);font-size:35px;font-weight:500;color:var(--ink);line-height:1;letter-spacing:.01em;transition:color .6s var(--ease)}
+.market-value strong.flash{color:var(--amber)}
+.chg{font-size:11px;font-weight:400;letter-spacing:.02em}
+.chg.up{color:var(--green)}.chg.down{color:var(--red)}
+.spark{height:70px;margin:24px 0 14px}
+.spark.chart{height:70px}
+.market-card .chart .area{display:none}
+.market-card .chart .dot{display:none}
+.meta{display:grid;grid-template-columns:1fr;gap:7px;margin-top:auto;padding-top:14px;border-top:1px solid var(--line-soft)}
+.meta-row{display:flex;justify-content:space-between;gap:12px;font-size:9.5px;letter-spacing:.06em}
+.meta-row span:first-child{color:var(--muted2)}
+.meta-row span:last-child{color:var(--ink-soft)}
+.updated{font-size:9px;letter-spacing:.08em;color:var(--muted2);margin-top:12px}
+.markets-note{margin-top:26px;display:inline-flex;align-items:center;gap:10px;font-size:10px;letter-spacing:.12em;color:var(--muted2)}
+.markets-note .dot{width:4px;height:4px;border-radius:50%;background:var(--muted2);transition:background .5s var(--ease)}
+.markets-note.is-live .dot{background:var(--amber);animation:pulse 3s var(--ease) infinite}
+
+/* ---------- Mobile swipe — turning pages ---------- */
+.swipe-dots{display:none}
+@media(max-width:820px){
+  .thesis-grid,.market-grid{
+    display:flex;grid-template-columns:none;gap:16px;background:none;border:0;
+    overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    margin:0 calc(-1*var(--edge));padding:6px var(--edge);scrollbar-width:none;
+  }
+  .thesis-grid::-webkit-scrollbar,.market-grid::-webkit-scrollbar{display:none}
+  .thesis-card,.market-card{flex:0 0 80%;scroll-snap-align:center;border:1px solid var(--line);box-shadow:0 50px 90px -60px rgba(0,0,0,.92)}
+  .thesis-grid{align-items:flex-start}
+  .thesis-card{min-height:auto;padding:24px 20px 22px}.market-card{min-height:auto}
+  .thesis-card .t-head{margin-bottom:16px}
+  .thesis-card .t-copy{min-height:0;margin-top:10px}
+  .thesis-card .graphic{margin-top:0;padding-top:16px}
+  .thesis-card .bars{height:74px}
+  .thesis-card .chart{height:80px}
+  .thesis-card .flow{gap:12px}
+  .thesis-card .sector-items{line-height:1.85}
+  .thesis-card.is-active,.market-card.is-active{background:var(--panel-warm)}
+  .swipe-dots{display:flex;gap:7px;justify-content:center;margin-top:20px}
+  .swipe-dots button{width:5px;height:5px;border-radius:50%;background:rgba(190,168,130,.28);border:0;padding:0;cursor:pointer;transition:background .4s var(--ease),width .4s var(--ease)}
+  .swipe-dots button.active{background:var(--amber);width:16px;border-radius:3px}
+}
+
+/* ---------- Footer — back of an invitation ---------- */
+.footer{background:var(--bg2)}
+.footer .inner{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:34px}
+.footer-mark{display:flex;flex-direction:column;align-items:center;gap:11px}
+.footer-mark .name{font-family:var(--serif);font-weight:500;font-size:clamp(48px,6.8vw,88px);letter-spacing:.34em;color:var(--ink);text-indent:.34em;line-height:1}
+.footer-mark .sub{font-size:11px;letter-spacing:.66em;color:var(--amber);text-indent:.66em}
+.footer-rule{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--amber),transparent);box-shadow:0 0 12px rgba(242,165,54,.3)}
+.footer-say{font-family:var(--serif);font-style:italic;font-size:clamp(19px,2.2vw,27px);color:var(--ink);line-height:1.5;max-width:24ch}
+.footer-social{display:flex;gap:14px}
+.footer-social a{width:39px;height:39px;border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);transition:color .4s var(--ease),border-color .4s var(--ease),background .4s var(--ease)}
+.footer-social a:hover{color:var(--amber);border-color:rgba(242,165,54,.42);background:rgba(242,165,54,.06)}
+.footer-newsletter{width:min(560px,88vw);display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.newsletter-eyebrow{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--amber)}
+.footer-newsletter p{font-size:12px;color:var(--muted2);letter-spacing:.05em}
+.newsletter-form{display:flex;width:min(470px,88vw);border-bottom:1px solid rgba(190,168,130,.28);padding-bottom:8px;margin-top:8px}
+.newsletter-form input{flex:1;background:transparent;border:0;outline:0;color:var(--ink);font-size:13px;letter-spacing:.04em;padding:10px 4px}
+.newsletter-form input::placeholder{color:var(--muted2)}
+.newsletter-form button{background:none;border:0;color:var(--amber);font-size:10px;letter-spacing:.22em;padding:10px 4px;cursor:pointer;transition:color .35s var(--ease),transform .35s var(--ease)}
+.newsletter-form button:hover{color:var(--ink);transform:translateX(3px)}
+.newsletter-status{min-height:18px;font-size:11px;color:var(--brass);letter-spacing:.04em}
+.footer-bottom{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);width:min(1360px,90vw);display:flex;justify-content:space-between;gap:20px;padding-top:18px;border-top:1px solid var(--hair);font-size:10px;letter-spacing:.1em;color:var(--muted2)}
+.footer-links{display:flex;gap:clamp(16px,2vw,28px);flex-wrap:wrap}
+.footer-links a{transition:color .4s var(--ease)}
+.footer-links a:hover{color:var(--ink)}
+
+/* ---------- Reveal (slow, unhurried) ---------- */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 1.15s var(--ease),transform 1.15s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.thesis-grid>.reveal:nth-child(1),.market-grid>.reveal:nth-child(1){transition-delay:.06s}
+.thesis-grid>.reveal:nth-child(2),.market-grid>.reveal:nth-child(2){transition-delay:.14s}
+.thesis-grid>.reveal:nth-child(3),.market-grid>.reveal:nth-child(3){transition-delay:.22s}
+.thesis-grid>.reveal:nth-child(4),.market-grid>.reveal:nth-child(4){transition-delay:.30s}
+.thesis-grid>.reveal:nth-child(5),.market-grid>.reveal:nth-child(5){transition-delay:.38s}
+.thesis-grid>.reveal:nth-child(6),.market-grid>.reveal:nth-child(6){transition-delay:.46s}
+.research-list>.reveal:nth-child(1){transition-delay:.06s}.research-list>.reveal:nth-child(2){transition-delay:.15s}
+.research-list>.reveal:nth-child(3){transition-delay:.24s}.research-list>.reveal:nth-child(4){transition-delay:.33s}
+.research-list>.reveal:nth-child(5){transition-delay:.42s}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1120px){
+  .thesis-grid{grid-template-columns:repeat(3,1fr)}
+  .market-grid{grid-template-columns:repeat(3,1fr)}
+  .research-layout{grid-template-columns:260px 1fr;gap:52px}
+}
+@media(max-width:820px){
+  html{scroll-snap-type:none}
+  .snap{height:auto;min-height:100svh;scroll-snap-align:none}
+  .section-inner{height:auto;min-height:100svh;padding:120px 0 66px}
+  /* Hero: fill the viewport and truly centre its content on phones */
+  .hero.snap{height:100svh;min-height:100svh}
+  .hero .inner{min-height:100svh;justify-content:center;padding:0}
+  .nav{display:none}.mobile-toggle{display:block}
+  .section-top{flex-direction:column;align-items:flex-start}
+  .section-side{text-align:left;margin-top:16px}
+  .research-layout{grid-template-columns:1fr;gap:44px}
+  .research-row{grid-template-columns:auto 1fr;grid-template-areas:"date pdf""title title""tag tag";gap:10px 16px;padding:24px 4px}
+  .research-row:hover{padding-left:4px}
+  .date{grid-area:date}.pdf{grid-area:pdf;justify-self:end}.tag{grid-area:tag;margin-top:2px}.r-title{grid-area:title;margin-top:6px}
+  .footer .inner{padding:120px 0 100px}
+  .newsletter-form{width:min(430px,88vw)}
+  .footer-bottom{position:static;transform:none;width:100%;margin-top:46px;flex-direction:column;align-items:center;gap:14px}
+}
+@media(max-width:560px){
+  .hero-title{font-size:16.5vw;letter-spacing:.16em;text-indent:.16em}
+  .hero-sub{font-size:12px;letter-spacing:.5em;text-indent:.5em}
+  .thesis-card{flex-basis:84%}.market-card{flex-basis:80%}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition-duration:.001s!important;animation:none!important}
+  .reveal{opacity:1;transform:none}.bar{transform:none}
+  .hero-title,.hero-sub,.hero-link,.hero-hint{opacity:1;transform:none}
+  .hero-hint{transform:translateX(-50%)}.hero-rule{transform:scaleX(1)}.hero::before{display:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="areaAmber" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2A536" stop-opacity=".16"/><stop offset="1" stop-color="#F2A536" stop-opacity="0"/></linearGradient>
+  <linearGradient id="areaPeri" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A38F6B" stop-opacity=".12"/><stop offset="1" stop-color="#A38F6B" stop-opacity="0"/></linearGradient>
+</defs></svg>
+
+<header class="site-header" id="header">
+  <a class="brand" href="#home" aria-label="Vesara Capital home"><span class="name">VESARA</span><span class="sub">CAPITAL</span></a>
+  <nav class="nav">
+    <a href="#research" data-spy="research">Research</a>
+    <a href="#markets" data-spy="markets">Markets</a>
+    <a href="#thesis" data-spy="thesis">Thesis</a>
+    <a href="#contact" data-spy="contact">House</a>
+    <a href="mailto:yash.work@gmail.com">Contact</a>
+    <a class="header-cta" href="#research">Read Research →</a>
+  </nav>
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <a href="#research">Research</a><a href="#markets">Markets</a><a href="#thesis">Thesis</a><a href="#contact">House</a><a href="mailto:yash.work@gmail.com">Contact</a>
+</div>
+
+<main>
+  <!-- ============ ENTRANCE ============ -->
+  <section class="snap hero" id="home">
+    <div class="inner">
+      <h1 class="hero-title">VESARA</h1>
+      <div class="hero-sub">CAPITAL</div>
+      <div class="hero-rule" aria-hidden="true"></div>
+      <a class="hero-link" href="#research">Latest Market Letter <span class="arw" aria-hidden="true">→</span></a>
+    </div>
+    <div class="hero-hint" aria-hidden="true"><span>Enter</span><span class="rail"></span></div>
+  </section>
+
+  <!-- ============ CURRENT THESIS ============ -->
+  <section class="snap" id="thesis">
+    <div class="inner section-inner">
+      <div class="section-top">
+        <div>
+          <div class="eyebrow">Our Current Thesis</div>
+          <div class="section-title">The themes we are watching.</div>
+        </div>
+        <div class="section-side">Six live themes across capital flows, earnings, rotation, relative strength and market structure.</div>
+      </div>
+      <div class="thesis-grid" id="thesisGrid">
+        <a class="thesis-card reveal" href="#research" aria-label="Thesis 01 — The Theme Gap">
+          <div class="t-head"><span class="t-no">01</span><span class="t-rule"></span></div>
+          <div class="t-title">The Theme Gap</div>
+          <div class="t-copy">Why foreign money looks elsewhere</div>
+          <div class="graphic"><div class="bars"><span class="bar a"></span><span class="bar b"></span><span class="bar c"></span></div></div>
+          <div class="t-caption"><span class="fig">Fig. 01</span><span>India Large-Cap · Global AI</span></div>
+        </a>
+        <a class="thesis-card reveal" href="#research" aria-label="Thesis 02 — The Earnings Gap">
+          <div class="t-head"><span class="t-no">02</span><span class="t-rule"></span></div>
+          <div class="t-title">The Earnings Gap</div>
+          <div class="t-copy">Capital competes globally, not locally</div>
+          <div class="graphic"><div class="bars"><span class="bar amber c"></span><span class="bar a"></span><span class="bar b"></span></div></div>
+          <div class="t-caption"><span class="fig">Fig. 02</span><span>S&amp;P 500 · India Large-Cap</span></div>
+        </a>
+        <a class="thesis-card reveal" href="#research" aria-label="Thesis 03 — Capital Flows">
+          <div class="t-head"><span class="t-no">03</span><span class="t-rule"></span></div>
+          <div class="t-title">Capital Flows</div>
+          <div class="t-copy">Where the bull market actually lives</div>
+          <div class="graphic flow">
+            <div class="flow-row"><span class="flow-box">Large Caps<em>foreign owned</em></span><span class="flow-arrow">→</span><span class="flow-out">Money leaving</span></div>
+            <div class="flow-row"><span class="flow-box">Small &amp; Mid Caps<em>locally owned</em></span><span class="flow-arrow">→</span><span class="flow-out">Money accumulating</span></div>
+          </div>
+          <div class="t-caption"><span class="fig">Fig. 03</span><span>Ownership vs direction of flow</span></div>
+        </a>
+        <a class="thesis-card reveal" href="#research" aria-label="Thesis 04 — Sector Rotation">
+          <div class="t-head"><span class="t-no">04</span><span class="t-rule"></span></div>
+          <div class="t-title">Sector Rotation</div>
+          <div class="t-copy">The money didn’t leave — it moved</div>
+          <div class="graphic sector">
+            <span class="sector-lead">Leading</span>
+            <div class="sector-items">Pharma · Microfinance<br>Small Private Banks<br>Defence · 2-Wheelers</div>
+          </div>
+          <div class="t-caption"><span class="fig">Fig. 04</span><span>Current sector leadership</span></div>
+        </a>
+        <a class="thesis-card reveal" href="#research" aria-label="Thesis 05 — Relative Strength">
+          <div class="t-head"><span class="t-no">05</span><span class="t-rule"></span></div>
+          <div class="t-title">Relative Strength</div>
+          <div class="t-copy">Strength hides in the smaller names</div>
+          <div class="graphic chart"><svg viewBox="0 0 200 90" preserveAspectRatio="none"><path class="accent" d="M0 76 L18 73 L34 76 L53 66 L69 70 L86 56 L104 63 L121 45 L140 50 L155 39 L173 31 L200 20"/><path class="secondary" d="M0 84 L24 82 L41 84 L58 77 L76 79 L95 73 L115 69 L135 64 L158 61 L176 56 L200 50"/></svg></div>
+          <div class="t-caption"><span class="fig">Fig. 05</span><span>Breadth beneath the index</span></div>
+        </a>
+        <a class="thesis-card reveal" href="#research" aria-label="Thesis 06 — The Quiet Shift">
+          <div class="t-head"><span class="t-no">06</span><span class="t-rule"></span></div>
+          <div class="t-title">The Quiet Shift</div>
+          <div class="t-copy">India’s low beta is the new global magnet</div>
+          <div class="graphic chart"><svg viewBox="0 0 200 90" preserveAspectRatio="none"><path class="accent" d="M0 58 L18 70 L34 47 L49 74 L65 51 L80 75 L95 62 L112 58 L129 47 L145 39 L164 34 L182 30 L200 22"/></svg></div>
+          <div class="t-caption"><span class="fig">Fig. 06</span><span>India beta vs global equities</span></div>
+        </a>
+      </div>
+      <div class="swipe-dots" data-for="thesisGrid" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- ============ RESEARCH ============ -->
+  <section class="snap" id="research">
+    <div class="inner section-inner">
+      <div class="research-layout">
+        <div class="research-intro">
+          <div class="eyebrow">Vesara Research</div>
+          <h3>What we think.<br>When we thought it.</h3>
+          <a class="link-amber" href="#">View all research <span class="arw" aria-hidden="true">→</span></a>
+        </div>
+        <div class="research-list">
+          <a class="research-row reveal" href="#"><div class="date">19 Aug 2026</div><div class="tag">Monthly Letter</div><div class="r-title">The Index Is Not The Market</div><div class="pdf">PDF <span class="arw" aria-hidden="true">→</span></div></a>
+          <a class="research-row reveal" href="#"><div class="date">14 Aug 2026</div><div class="tag">Capital Flows</div><div class="r-title">The Money Didn’t Leave — It Moved</div><div class="pdf">PDF <span class="arw" aria-hidden="true">→</span></div></a>
+          <a class="research-row reveal" href="#"><div class="date">08 Aug 2026</div><div class="tag">Market Structure</div><div class="r-title">Where Volatility Actually Lives</div><div class="pdf">PDF <span class="arw" aria-hidden="true">→</span></div></a>
+          <a class="research-row reveal" href="#"><div class="date">02 Aug 2026</div><div class="tag">Earnings</div><div class="r-title">Earnings: The Global Benchmark</div><div class="pdf">PDF <span class="arw" aria-hidden="true">→</span></div></a>
+          <a class="research-row reveal" href="#"><div class="date">26 Jul 2026</div><div class="tag">Sector Study</div><div class="r-title">Microfinance: The Quiet Compounder</div><div class="pdf">PDF <span class="arw" aria-hidden="true">→</span></div></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MARKETS (live) ============ -->
+  <section class="snap" id="markets">
+    <div class="inner section-inner">
+      <div class="section-top">
+        <div>
+          <div class="eyebrow">Markets at a Glance</div>
+          <div class="section-title">The market, reduced to what matters.</div>
+        </div>
+        <a class="link-amber" href="#">View all markets <span class="arw" aria-hidden="true">→</span></a>
+      </div>
+      <div class="market-grid" id="marketGrid">
+        <article class="market-card reveal" data-inst="nifty50" data-accent="1"><div class="market-top"><span class="market-name">NIFTY 50</span><span class="live-dot" title="Live"></span></div><div class="market-value"><strong>24,552</strong><span class="chg up">+0.32%</span></div><div class="spark chart"><svg viewBox="0 0 200 78" preserveAspectRatio="none"><path class="accent" d="M0 56 L20 48 L39 56 L57 44 L75 51 L96 38 L118 45 L134 32 L153 39 L172 20 L200 16"/></svg></div><div class="meta"><div class="meta-row"><span>52W High</span><span class="hi">25,110</span></div><div class="meta-row"><span>52W Low</span><span class="lo">21,137</span></div></div><div class="updated">Updated 19 Aug 2026</div></article>
+        <article class="market-card reveal" data-inst="sp500"><div class="market-top"><span class="market-name">S&amp;P 500</span><span class="live-dot" title="Live"></span></div><div class="market-value"><strong>5,570</strong><span class="chg up">+0.23%</span></div><div class="spark chart"><svg viewBox="0 0 200 78" preserveAspectRatio="none"><path class="secondary" d="M0 58 L21 55 L41 61 L62 51 L82 54 L104 48 L125 43 L146 46 L167 32 L200 22"/></svg></div><div class="meta"><div class="meta-row"><span>52W High</span><span class="hi">5,669</span></div><div class="meta-row"><span>52W Low</span><span class="lo">4,682</span></div></div><div class="updated">Updated 19 Aug 2026</div></article>
+        <article class="market-card reveal" data-inst="niftymidcap150"><div class="market-top"><span class="market-name">NIFTY MIDCAP 150</span><span class="live-dot" title="Live"></span></div><div class="market-value"><strong>20,345</strong><span class="chg up">+0.71%</span></div><div class="spark chart"><svg viewBox="0 0 200 78" preserveAspectRatio="none"><path class="secondary" d="M0 61 L18 48 L36 56 L57 44 L75 51 L96 33 L116 38 L137 24 L157 31 L178 20 L200 14"/></svg></div><div class="meta"><div class="meta-row"><span>52W High</span><span class="hi">21,147</span></div><div class="meta-row"><span>52W Low</span><span class="lo">14,987</span></div></div><div class="updated">Updated 19 Aug 2026</div></article>
+        <article class="market-card reveal" data-inst="niftysmallcap250"><div class="market-top"><span class="market-name">NIFTY SMALLCAP 250</span><span class="live-dot" title="Live"></span></div><div class="market-value"><strong>15,817</strong><span class="chg up">+0.91%</span></div><div class="spark chart"><svg viewBox="0 0 200 78" preserveAspectRatio="none"><path class="secondary" d="M0 67 L18 56 L37 60 L57 47 L73 54 L94 37 L113 42 L133 30 L153 35 L174 22 L200 10"/></svg></div><div class="meta"><div class="meta-row"><span>52W High</span><span class="hi">16,230</span></div><div class="meta-row"><span>52W Low</span><span class="lo">10,742</span></div></div><div class="updated">Updated 19 Aug 2026</div></article>
+        <article class="market-card reveal" data-inst="gold"><div class="market-top"><span class="market-name">Gold (USD)</span><span class="live-dot" title="Live"></span></div><div class="market-value"><strong>2,486</strong><span class="chg down">-0.35%</span></div><div class="spark chart"><svg viewBox="0 0 200 78" preserveAspectRatio="none"><path class="secondary" d="M0 35 L19 31 L38 45 L57 40 L76 53 L95 46 L114 57 L134 49 L153 58 L172 52 L200 44"/></svg></div><div class="meta"><div class="meta-row"><span>52W High</span><span class="hi">2,531</span></div><div class="meta-row"><span>52W Low</span><span class="lo">1,820</span></div></div><div class="updated">Updated 19 Aug 2026</div></article>
+        <article class="market-card reveal" data-inst="usdinr"><div class="market-top"><span class="market-name">USD / INR</span><span class="live-dot" title="Live"></span></div><div class="market-value"><strong>83.24</strong><span class="chg down">-0.12%</span></div><div class="spark chart"><svg viewBox="0 0 200 78" preserveAspectRatio="none"><path class="secondary" d="M0 53 L19 39 L37 47 L55 56 L73 39 L92 50 L110 41 L130 33 L149 40 L172 28 L200 18"/></svg></div><div class="meta"><div class="meta-row"><span>52W High</span><span class="hi">83.47</span></div><div class="meta-row"><span>52W Low</span><span class="lo">82.05</span></div></div><div class="updated">Updated 19 Aug 2026</div></article>
+      </div>
+      <div class="swipe-dots" data-for="marketGrid" aria-hidden="true"></div>
+      <div class="markets-note reveal" id="marketsNote"><span class="dot"></span><span id="marketsNoteText">Connecting to live market data…</span></div>
+    </div>
+  </section>
+
+  <!-- ============ HOUSE / FOOTER ============ -->
+  <section class="snap footer" id="contact">
+    <div class="inner">
+      <div class="footer-mark reveal"><span class="name">VESARA</span><span class="sub">CAPITAL</span></div>
+      <div class="footer-rule reveal" aria-hidden="true"></div>
+      <div class="footer-newsletter reveal">
+        <span class="newsletter-eyebrow">VESARA RESEARCH LETTER</span>
+        <p>Occasional market research, delivered quietly.</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" name="email" placeholder="Your email address" aria-label="Your email address" required>
+          <button type="submit">SUBSCRIBE <span aria-hidden="true">→</span></button>
+        </form>
+        <div class="newsletter-status" id="newsletterStatus" role="status" aria-live="polite"></div>
+      </div>
+      <div class="footer-social reveal">
+        <a href="https://www.instagram.com/invest.ysk/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4.2"></circle>
+            <circle cx="17.5" cy="6.5" r="1"></circle>
+          </svg>
+        </a>
+        <a href="mailto:yash.work@gmail.com" aria-label="Email" title="Email">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="1.5"></rect>
+            <path d="M4 7l8 6 8-6"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="footer-links"><a href="#research">Research</a><a href="#markets">Markets</a><a href="#thesis">Thesis</a><a href="#contact">House</a><a href="mailto:yash.work@gmail.com">Contact</a><a href="#">Legal</a><a href="#">Privacy</a></div><div>© 2026 Vesara Capital. All rights reserved.</div></div>
+  </section>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var SVGNS="http://www.w3.org/2000/svg";
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var header=document.getElementById('header');
+  var hero=document.querySelector('.hero');
+
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ if(hero) hero.classList.add('entered'); }); });
+
+  function seriesToPath(series,W,H,pad){
+    var n=series.length; if(n<2) return null;
+    var min=Math.min.apply(null,series), max=Math.max.apply(null,series), rng=(max-min)||1, d="";
+    for(var i=0;i<n;i++){ var x=(i/(n-1))*W, y=pad+(1-(series[i]-min)/rng)*(H-2*pad); d+=(i?" L ":"M ")+x.toFixed(1)+" "+y.toFixed(1); }
+    return d;
+  }
+  function svgBox(svg){ var vb=(svg.getAttribute('viewBox')||'0 0 200 90').split(/\s+/).map(Number); return {W:vb[2],H:vb[3]}; }
+  function lastPoint(d){ var m=d.match(/([-\d.]+)[ ,]+([-\d.]+)\s*$/); return m?[parseFloat(m[1]),parseFloat(m[2])]:null; }
+
+  function decorate(svg){
+    var main=svg.querySelector('path:not(.area)'); if(!main) return;
+    var sec=main.classList.contains('secondary');
+    var d=main.getAttribute('d'), box=svgBox(svg), area=svg.querySelector('.area');
+    if(!area){ area=document.createElementNS(SVGNS,'path'); area.setAttribute('class','area'); svg.insertBefore(area,svg.firstChild); }
+    area.setAttribute('fill', sec?'url(#areaPeri)':'url(#areaAmber)');
+    area.setAttribute('d', d+' L '+box.W+' '+box.H+' L 0 '+box.H+' Z');
+    var pt=lastPoint(d), dot=svg.querySelector('.dot');
+    if(pt){
+      if(!dot){ dot=document.createElementNS(SVGNS,'circle'); dot.setAttribute('class','dot'); dot.setAttribute('r','2'); dot.style.opacity='0'; dot.style.transition='opacity .5s ease,cx .8s var(--ease),cy .8s var(--ease)'; svg.appendChild(dot); }
+      dot.setAttribute('fill', sec?'#A38F6B':'#F2A536'); dot.setAttribute('cx',pt[0]); dot.setAttribute('cy',pt[1]);
+    }
+  }
+  function primeDraw(svg){ svg.querySelectorAll('path:not(.area)').forEach(function(p){ try{var l=p.getTotalLength(); p.style.strokeDasharray=l; p.style.strokeDashoffset=l;}catch(e){} }); }
+  function runDraw(svg){
+    svg.querySelectorAll('path:not(.area)').forEach(function(p,i){
+      if(reduce){ p.style.strokeDashoffset='0'; return; }
+      requestAnimationFrame(function(){ p.style.transition='stroke-dashoffset 1.7s var(--ease) '+(0.2+i*0.16)+'s'; p.style.strokeDashoffset='0'; });
+    });
+    var dot=svg.querySelector('.dot'); if(dot) setTimeout(function(){dot.style.opacity='1';}, reduce?0:1400);
+  }
+  document.querySelectorAll('.chart svg').forEach(function(svg){ decorate(svg); primeDraw(svg); });
+
+  if(reduce){
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+    document.querySelectorAll('.chart svg').forEach(runDraw);
+  } else {
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); e.target.querySelectorAll&&e.target.querySelectorAll('.chart svg').forEach(runDraw); io.unobserve(e.target); } });
+    },{threshold:.16});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  }
+
+  new IntersectionObserver(function(entries){ entries.forEach(function(e){ header.classList.toggle('scrolled', !e.isIntersecting); }); },{threshold:.4}).observe(document.getElementById('home'));
+
+  var spyLinks=[].slice.call(document.querySelectorAll('.nav a[data-spy]')), spyMap={};
+  spyLinks.forEach(function(a){ spyMap[a.getAttribute('data-spy')]=a; });
+  var spyIO=new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ spyLinks.forEach(function(a){a.classList.remove('active');}); var l=spyMap[e.target.id]; if(l) l.classList.add('active'); } }); },{threshold:.5});
+  ['thesis','research','markets','contact'].forEach(function(id){ var s=document.getElementById(id); if(s) spyIO.observe(s); });
+
+  var toggle=document.getElementById('mobileToggle'), menu=document.getElementById('mobileMenu');
+  function closeMenu(){ document.body.classList.remove('menu-open'); toggle.setAttribute('aria-expanded','false'); menu.setAttribute('aria-hidden','true'); }
+  toggle.addEventListener('click', function(){ var open=document.body.classList.toggle('menu-open'); toggle.setAttribute('aria-expanded',open?'true':'false'); toggle.setAttribute('aria-label',open?'Close menu':'Open menu'); menu.setAttribute('aria-hidden',open?'false':'true'); });
+  menu.addEventListener('click', function(e){ if(e.target.tagName==='A') closeMenu(); });
+
+  /* Page-turn swipe: dots + warm active card */
+  document.querySelectorAll('.swipe-dots').forEach(function(dots){
+    var grid=document.getElementById(dots.getAttribute('data-for')); if(!grid) return;
+    var cards=[].slice.call(grid.children);
+    cards.forEach(function(c,i){ var b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label','Card '+(i+1)); if(i===0){b.className='active';c.classList.add('is-active');} b.addEventListener('click',function(){ grid.scrollTo({left:cards[i].offsetLeft-grid.offsetLeft,behavior:'smooth'}); }); dots.appendChild(b); });
+    var btns=[].slice.call(dots.children), raf;
+    grid.addEventListener('scroll', function(){ if(raf) cancelAnimationFrame(raf); raf=requestAnimationFrame(function(){
+      var center=grid.scrollLeft+grid.clientWidth/2, best=0, bestD=Infinity;
+      cards.forEach(function(c,i){ var cc=c.offsetLeft-grid.offsetLeft+c.clientWidth/2, dd=Math.abs(cc-center); if(dd<bestD){bestD=dd;best=i;} });
+      btns.forEach(function(b,i){ b.classList.toggle('active', i===best); });
+      cards.forEach(function(c,i){ c.classList.toggle('is-active', i===best); });
+    }); }, {passive:true});
+  });
+
+  /* ===================== LIVE MARKET DATA =====================
+     Best-effort client-side feed (Yahoo Finance via CORS-proxy chain).
+     Each card keeps its seed and is honestly marked illustrative on failure.
+     Replace fetchQuote() to plug in a paid/keyed provider. */
+  var INSTRUMENTS={
+    nifty50:{symbols:['^NSEI'],fmt:'int'},
+    sp500:{symbols:['^GSPC'],fmt:'int'},
+    niftymidcap150:{symbols:['NIFTY_MIDCAP_150.NS','^NSEMDCP50'],fmt:'int'},
+    niftysmallcap250:{symbols:['NIFTYSMLCAP250.NS','^CNXSC'],fmt:'int'},
+    gold:{symbols:['GC=F','XAUUSD=X'],fmt:'int'},
+    usdinr:{symbols:['INR=X','USDINR=X'],fmt:'fx'}
+  };
+  var PROXIES=[function(u){return u;},function(u){return 'https://corsproxy.io/?url='+encodeURIComponent(u);},function(u){return 'https://api.allorigins.win/raw?url='+encodeURIComponent(u);}];
+  function fmtVal(v,f){ if(f==='fx') return (Math.round(v*100)/100).toFixed(2); return Math.round(v).toLocaleString('en-US'); }
+  function downsample(a,n){ if(a.length<=n) return a.slice(); var out=[],step=(a.length-1)/(n-1); for(var i=0;i<n;i++) out.push(a[Math.round(i*step)]); return out; }
+  function fetchYahoo(symbol){
+    var target='https://query1.finance.yahoo.com/v8/finance/chart/'+encodeURIComponent(symbol)+'?range=1d&interval=5m';
+    return PROXIES.map(function(p){return p(target);}).reduce(function(prev,url){
+      return prev.then(function(res){ if(res) return res; return new Promise(function(resolve){
+        var ctrl=new AbortController(), to=setTimeout(function(){ctrl.abort();},6500);
+        fetch(url,{signal:ctrl.signal}).then(function(r){ clearTimeout(to); return r.ok?r.json():null; }).then(function(j){
+          try{ var r=j&&j.chart&&j.chart.result&&j.chart.result[0]; if(!r) return resolve(null);
+            var meta=r.meta||{}, closes=((r.indicators&&r.indicators.quote&&r.indicators.quote[0].close)||[]).filter(function(v){return v!=null;});
+            var price=(meta.regularMarketPrice!=null)?meta.regularMarketPrice:closes[closes.length-1];
+            var prevc=(meta.chartPreviousClose!=null)?meta.chartPreviousClose:(meta.previousClose!=null?meta.previousClose:closes[0]);
+            if(price==null||closes.length<2) return resolve(null);
+            resolve({price:price,prev:prevc,series:closes,high52:meta.fiftyTwoWeekHigh,low52:meta.fiftyTwoWeekLow});
+          }catch(e){ resolve(null); }
+        }).catch(function(){ clearTimeout(to); resolve(null); });
+      }); });
+    }, Promise.resolve(null));
+  }
+  function fetchQuote(cfg){ return cfg.symbols.reduce(function(prev,sym){ return prev.then(function(r){ return r?r:fetchYahoo(sym); }); }, Promise.resolve(null)); }
+
+  function updateCard(card,q,fmt){
+    var valEl=card.querySelector('.market-value strong'), chgEl=card.querySelector('.chg'), svg=card.querySelector('.spark svg'), accent=card.getAttribute('data-accent')==='1';
+    valEl.textContent=fmtVal(q.price,fmt); valEl.classList.add('flash'); setTimeout(function(){valEl.classList.remove('flash');},700);
+    var chg=q.prev?((q.price-q.prev)/q.prev*100):0;
+    chgEl.textContent=(chg>=0?'+':'')+chg.toFixed(2)+'%'; chgEl.className='chg '+(chg>=0?'up':'down');
+    if(q.high52) card.querySelector('.hi').textContent=fmtVal(q.high52,fmt);
+    if(q.low52) card.querySelector('.lo').textContent=fmtVal(q.low52,fmt);
+    if(svg&&q.series&&q.series.length>1){
+      var box=svgBox(svg), d=seriesToPath(downsample(q.series,26),box.W,box.H,6), main=svg.querySelector('path:not(.area)');
+      main.setAttribute('d',d); main.setAttribute('class',accent?'accent':'secondary'); decorate(svg); primeDraw(svg); runDraw(svg);
+    }
+    card.querySelector('.updated').textContent='Live · '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    card.classList.add('live');
+  }
+  var note=document.getElementById('marketsNote'), noteText=document.getElementById('marketsNoteText');
+  function refreshMarkets(){
+    var cards=[].slice.call(document.querySelectorAll('.market-card[data-inst]'));
+    Promise.all(cards.map(function(card){ var cfg=INSTRUMENTS[card.getAttribute('data-inst')]; if(!cfg) return Promise.resolve(false);
+      return fetchQuote(cfg).then(function(q){ if(q){ updateCard(card,q,cfg.fmt); return true; } return false; }).catch(function(){ return false; }); })).then(function(res){
+      var live=res.filter(Boolean).length;
+      if(live>0){ note.classList.add('is-live'); var t=new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+        noteText.textContent=(live===cards.length?'Live market data':'Live where available ('+live+'/'+cards.length+')')+' · updated '+t;
+      } else { note.classList.remove('is-live'); noteText.textContent='Illustrative snapshot — live feed unavailable from this browser. Values shown are indicative.'; }
+    });
+  }
+  setTimeout(refreshMarkets, 2800); setInterval(refreshMarkets, 45000);
+
+  var newsletterForm=document.getElementById('newsletterForm');
+  var newsletterStatus=document.getElementById('newsletterStatus');
+  if(newsletterForm){
+    newsletterForm.addEventListener('submit',function(e){
+      e.preventDefault();
+      var input=newsletterForm.querySelector('input[type="email"]');
+      if(!input.checkValidity()){ input.reportValidity(); return; }
+      var email=input.value.trim();
+      var subject=encodeURIComponent('Subscribe to Vesara Research Letter');
+      var body=encodeURIComponent('Please add this email to the Vesara Research Letter: '+email);
+      window.location.href='mailto:yash.work@gmail.com?subject='+subject+'&body='+body;
+      newsletterStatus.textContent='Your email client will open to complete the subscription.';
+    });
+  }
+
+  var sections=[].slice.call(document.querySelectorAll('.snap')), touchStartY=0;
+  window.addEventListener('touchstart', function(e){ touchStartY=e.touches[0].clientY; }, {passive:true});
+  window.addEventListener('touchend', function(e){
+    if(window.innerWidth<820 || document.body.classList.contains('menu-open')) return;
+    var dy=touchStartY-e.changedTouches[0].clientY; if(Math.abs(dy)<50) return;
+    var cur=sections.findIndex(function(s){ var r=s.getBoundingClientRect(); return r.top<=window.innerHeight*.45 && r.bottom>=window.innerHeight*.55; });
+    if(cur<0) return; sections[Math.max(0,Math.min(sections.length-1, cur+(dy>0?1:-1)))].scrollIntoView({behavior:'smooth'});
+  }, {passive:true});
+})();
+</script>
+</body>
+</html>
