@@ -178,11 +178,11 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible}
 .sector-items{color:var(--ink);font-size:13px;line-height:2.05;letter-spacing:.01em}
 
 /* ---------- Research — private memorandum ---------- */
-.research-layout{display:grid;grid-template-columns:330px 1fr;gap:clamp(44px,6vw,92px);align-items:center}
+.research-layout{display:grid;grid-template-columns:330px 1fr;gap:clamp(44px,6vw,92px);align-items:center;width:100%;}
 .research-intro h3{font-family:var(--serif);font-weight:300;font-size:clamp(42px,4.8vw,72px);color:var(--ink);line-height:1.12;margin-top:20px;letter-spacing:.004em}
 .research-intro .link-amber{margin-top:36px}
 .research-list{border-top:1px solid var(--line)}
-.research-row{display:grid;grid-template-columns:150px 150px 1fr auto;align-items:center;gap:26px;padding:30px 8px;border-bottom:1px solid var(--line);transition:background .5s var(--ease),padding-left .5s var(--ease)}
+.research-row{display:grid;grid-template-columns:150px 150px 1fr auto;align-items:center;gap:26px;padding:22px 8px;border-bottom:1px solid var(--line);transition:background .5s var(--ease),padding-left .5s var(--ease)}
 .research-row:hover{background:var(--panel-warm);padding-left:16px}
 .date{font-family:var(--serif);font-size:17px;font-weight:500;letter-spacing:.06em;color:var(--ink-soft);white-space:nowrap}
 .tag{display:inline-block;width:max-content;border:1px solid var(--line-soft);padding:5px 11px;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass-dim)}
@@ -330,18 +330,18 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible}
 <header class="site-header" id="header">
   <a class="brand" href="#home" aria-label="Vesara Capital home"><span class="name">VESARA</span><span class="sub">CAPITAL</span></a>
   <nav class="nav">
-    <a href="#research" data-spy="research">Research</a>
+    <a href="research.html" data-spy="research">Research</a>
     <a href="#markets" data-spy="markets">Markets</a>
     <a href="#thesis" data-spy="thesis">Thesis</a>
     <a href="#contact" data-spy="contact">House</a>
     <a href="mailto:yash.work@gmail.com">Contact</a>
-    <a class="header-cta" href="#research">Read Research →</a>
+    <a class="header-cta" href="research.html">Read Research →</a>
   </nav>
   <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
 </header>
 
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-  <a href="#research">Research</a><a href="#markets">Markets</a><a href="#thesis">Thesis</a><a href="#contact">House</a><a href="mailto:yash.work@gmail.com">Contact</a>
+  <a href="research.html">Research</a><a href="#markets">Markets</a><a href="#thesis">Thesis</a><a href="#contact">House</a><a href="mailto:yash.work@gmail.com">Contact</a>
 </div>
 
 <main>
@@ -351,7 +351,7 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible}
       <h1 class="hero-title">VESARA</h1>
       <div class="hero-sub">CAPITAL</div>
       <div class="hero-rule" aria-hidden="true"></div>
-      <a class="hero-link" href="#research">Latest Market Letter <span class="arw" aria-hidden="true">→</span></a>
+      <a class="hero-link" href="research.html">Latest Market Letter <span class="arw" aria-hidden="true">→</span></a>
     </div>
     <div class="hero-hint" aria-hidden="true"><span>Enter</span><span class="rail"></span></div>
   </section>
@@ -427,14 +427,44 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible}
         <div class="research-intro">
           <div class="eyebrow">Vesara Research</div>
           <h3>What we think.<br>When we thought it.</h3>
-          <a class="link-amber" href="#">View all research <span class="arw" aria-hidden="true">→</span></a>
+          <a class="link-amber" href="research.html">View all research <span class="arw" aria-hidden="true">→</span></a>
         </div>
+
         <div class="research-list">
-          <a class="research-row reveal" href="#"><div class="date">19 Aug 2026</div><div class="tag">Monthly Letter</div><div class="r-title">The Index Is Not The Market</div><div class="pdf">PDF <span class="arw" aria-hidden="true">→</span></div></a>
-          <a class="research-row reveal" href="#"><div class="date">14 Aug 2026</div><div class="tag">Capital Flows</div><div class="r-title">The Money Didn’t Leave — It Moved</div><div class="pdf">PDF <span class="arw" aria-hidden="true">→</span></div></a>
-          <a class="research-row reveal" href="#"><div class="date">08 Aug 2026</div><div class="tag">Market Structure</div><div class="r-title">Where Volatility Actually Lives</div><div class="pdf">PDF <span class="arw" aria-hidden="true">→</span></div></a>
-          <a class="research-row reveal" href="#"><div class="date">02 Aug 2026</div><div class="tag">Earnings</div><div class="r-title">Earnings: The Global Benchmark</div><div class="pdf">PDF <span class="arw" aria-hidden="true">→</span></div></a>
-          <a class="research-row reveal" href="#"><div class="date">26 Jul 2026</div><div class="tag">Sector Study</div><div class="r-title">Microfinance: The Quiet Compounder</div><div class="pdf">PDF <span class="arw" aria-hidden="true">→</span></div></a>
+          <a class="research-row reveal" href="report-july-2026.html">
+            <div class="date">29 Jul 2026</div>
+            <div class="tag">Monthly Letter</div>
+            <div class="r-title">The Market Was Not Broken</div>
+            <div class="pdf">READ <span class="arw" aria-hidden="true">→</span></div>
+          </a>
+
+          <a class="research-row reveal" href="report-may-2026.html">
+            <div class="date">09 Jun 2026</div>
+            <div class="tag">Monthly Letter</div>
+            <div class="r-title">Patience During Uncertainty</div>
+            <div class="pdf">READ <span class="arw" aria-hidden="true">→</span></div>
+          </a>
+
+          <a class="research-row reveal" href="report-february-march-2026.html">
+            <div class="date">23 Mar 2026</div>
+            <div class="tag">Monthly Letter</div>
+            <div class="r-title">February–March 2026</div>
+            <div class="pdf">READ <span class="arw" aria-hidden="true">→</span></div>
+          </a>
+
+          <a class="research-row reveal" href="report-november-2025.html">
+            <div class="date">07 Dec 2025</div>
+            <div class="tag">Monthly Letter</div>
+            <div class="r-title">Narrow Leadership, Tricky Tape</div>
+            <div class="pdf">READ <span class="arw" aria-hidden="true">→</span></div>
+          </a>
+
+          <a class="research-row reveal" href="report-october-2025.html">
+            <div class="date">03 Nov 2025</div>
+            <div class="tag">Monthly Letter</div>
+            <div class="r-title">Rotation, Not Runway</div>
+            <div class="pdf">READ <span class="arw" aria-hidden="true">→</span></div>
+          </a>
         </div>
       </div>
     </div>
