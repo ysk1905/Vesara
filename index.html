@@ -263,7 +263,7 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible}
 .newsletter-form input::placeholder{color:var(--muted2)}
 .newsletter-form button{background:none;border:0;color:var(--amber);font-size:10px;letter-spacing:.22em;padding:10px 4px;cursor:pointer;transition:color .35s var(--ease),transform .35s var(--ease)}
 .newsletter-form button:hover{color:var(--ink);transform:translateX(3px)}
-.newsletter-status{min-height:18px;font-size:11px;color:var(--brass);letter-spacing:.04em}
+.newsletter-status{min-height:18px;font-size:11px;color:var(--brass);letter-spacing:.04em}.beehiiv-form-wrap{width:min(470px,88vw);min-height:46px;margin-top:8px;display:flex;justify-content:center;align-items:flex-start}.beehiiv-form-inner{width:100%}.beehiiv-form-inner iframe{width:100%!important;max-width:470px!important;border:0!important;background:transparent!important}.beehiiv-form-inner input{background:transparent!important;color:var(--ink)!important;border:0!important;border-bottom:1px solid rgba(190,168,130,.28)!important;border-radius:0!important}.beehiiv-form-inner input::placeholder{color:var(--muted2)!important}.beehiiv-form-inner button{background:transparent!important;color:var(--amber)!important;border:0!important;border-radius:0!important;text-transform:uppercase!important;letter-spacing:.22em!important}
 .footer-bottom{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);width:min(1360px,90vw);display:flex;justify-content:space-between;gap:20px;padding-top:18px;border-top:1px solid var(--hair);font-size:10px;letter-spacing:.1em;color:var(--muted2)}
 .footer-links{display:flex;gap:clamp(16px,2vw,28px);flex-wrap:wrap}
 .footer-links a{transition:color .4s var(--ease)}
@@ -471,11 +471,7 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible}
       <div class="footer-newsletter reveal">
         <span class="newsletter-eyebrow">VESARA RESEARCH LETTER</span>
         <p>Occasional market research, delivered quietly.</p>
-        <form class="newsletter-form" id="newsletterForm">
-          <input type="email" name="email" placeholder="Your email address" aria-label="Your email address" required>
-          <button type="submit">SUBSCRIBE <span aria-hidden="true">→</span></button>
-        </form>
-        <div class="newsletter-status" id="newsletterStatus" role="status" aria-live="polite"></div>
+        <div class="beehiiv-form-wrap" id="beehiivForm"><div class="beehiiv-form-inner" data-beehiiv-form="b93ecd9d-6e1b-45fe-b1ea-be7c48d9d281"></div></div>
       </div>
       <div class="footer-social reveal">
         <a href="https://www.instagram.com/invest.ysk/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
@@ -635,22 +631,6 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible}
     });
   }
   setTimeout(refreshMarkets, 2800); setInterval(refreshMarkets, 45000);
-
-  var newsletterForm=document.getElementById('newsletterForm');
-  var newsletterStatus=document.getElementById('newsletterStatus');
-  if(newsletterForm){
-    newsletterForm.addEventListener('submit',function(e){
-      e.preventDefault();
-      var input=newsletterForm.querySelector('input[type="email"]');
-      if(!input.checkValidity()){ input.reportValidity(); return; }
-      var email=input.value.trim();
-      var subject=encodeURIComponent('Subscribe to Vesara Research Letter');
-      var body=encodeURIComponent('Please add this email to the Vesara Research Letter: '+email);
-      window.location.href='mailto:yash.work@gmail.com?subject='+subject+'&body='+body;
-      newsletterStatus.textContent='Your email client will open to complete the subscription.';
-    });
-  }
-
   var sections=[].slice.call(document.querySelectorAll('.snap')), touchStartY=0;
   window.addEventListener('touchstart', function(e){ touchStartY=e.touches[0].clientY; }, {passive:true});
   window.addEventListener('touchend', function(e){
@@ -661,5 +641,6 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible}
   }, {passive:true});
 })();
 </script>
+<script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="b93ecd9d-6e1b-45fe-b1ea-be7c48d9d281"></script>
 </body>
 </html>
