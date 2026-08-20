@@ -178,62 +178,9 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible}
 .sector-items{color:var(--ink);font-size:13px;line-height:2.05;letter-spacing:.01em}
 
 /* ---------- Research — private memorandum ---------- */
-.research-layout{
-  display:grid;
-  grid-template-columns:330px minmax(0,1fr);
-  grid-template-areas:
-    "intro list"
-    "signup signup";
-  column-gap:clamp(44px,6vw,92px);
-  row-gap:28px;
-  align-items:start;
-  width:100%;
-}
-.research-intro{grid-area:intro;padding-top:2px}
-.research-intro h3{
-  font-family:var(--serif);
-  font-weight:300;
-  font-size:clamp(40px,4.2vw,64px);
-  color:var(--ink);
-  line-height:1.05;
-  margin-top:18px;
-  letter-spacing:.004em;
-}
-.research-intro .link-amber{margin-top:34px}
-.research-list{grid-area:list;border-top:1px solid var(--line)}
-.research-signup-box{
-  grid-area:signup;
-  width:100%;
-  margin-top:0;
-  border:1px solid var(--line);
-  background:var(--panel);
-  padding:18px 22px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:24px;
-  transition:background .5s var(--ease),border-color .5s var(--ease);
-}
-.research-signup-box:hover{background:var(--panel-warm);border-color:rgba(242,165,54,.25)}
-.research-signup-title{font-family:var(--serif);font-size:22px;color:var(--ink);line-height:1.2}
-.research-signup-text{font-size:11.5px;color:var(--muted2);margin-top:5px;line-height:1.5}
-@media(max-width:1120px){
-  .research-layout{grid-template-columns:280px minmax(0,1fr);column-gap:48px}
-}
-@media(max-width:820px){
-  .research-layout{
-    grid-template-columns:1fr;
-    grid-template-areas:
-      "intro"
-      "list"
-      "signup";
-    row-gap:28px;
-  }
-  .research-intro h3{font-size:clamp(42px,10vw,60px)}
-  .research-signup-box{margin-top:0;flex-direction:column;align-items:flex-start}
-  .research-signup-box .link-amber{margin-top:4px}
-}
-
+.research-layout{display:grid;grid-template-columns:330px 1fr;gap:clamp(44px,6vw,92px);align-items:center;width:100%;}
+.research-intro h3{font-family:var(--serif);font-weight:300;font-size:clamp(42px,4.8vw,72px);color:var(--ink);line-height:1.12;margin-top:20px;letter-spacing:.004em}
+.research-intro .link-amber{margin-top:36px}
 .research-list{border-top:1px solid var(--line)}
 .research-row{display:grid;grid-template-columns:150px 150px 1fr auto;align-items:center;gap:26px;padding:22px 8px;border-bottom:1px solid var(--line);transition:background .5s var(--ease),padding-left .5s var(--ease)}
 .research-row:hover{background:var(--panel-warm);padding-left:16px}
@@ -316,9 +263,7 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible}
 .newsletter-form input::placeholder{color:var(--muted2)}
 .newsletter-form button{background:none;border:0;color:var(--amber);font-size:10px;letter-spacing:.22em;padding:10px 4px;cursor:pointer;transition:color .35s var(--ease),transform .35s var(--ease)}
 .newsletter-form button:hover{color:var(--ink);transform:translateX(3px)}
- .newsletter-status{min-height:18px;font-size:11px;color:var(--brass);letter-spacing:.04em}
-.newsletter-form button:disabled{opacity:.55;cursor:default;transform:none!important}
-.beehiiv-form-wrap{width:min(470px,88vw);min-height:46px;margin-top:8px;display:flex;justify-content:center;align-items:flex-start}.beehiiv-form-inner{width:100%}.beehiiv-form-inner iframe{width:100%!important;max-width:470px!important;border:0!important;background:transparent!important}.beehiiv-form-inner input{background:transparent!important;color:var(--ink)!important;border:0!important;border-bottom:1px solid rgba(190,168,130,.28)!important;border-radius:0!important}.beehiiv-form-inner input::placeholder{color:var(--muted2)!important}.beehiiv-form-inner button{background:transparent!important;color:var(--amber)!important;border:0!important;border-radius:0!important;text-transform:uppercase!important;letter-spacing:.22em!important}
+.newsletter-status{min-height:18px;font-size:11px;color:var(--brass);letter-spacing:.04em}.beehiiv-form-wrap{width:min(470px,88vw);min-height:46px;margin-top:8px;display:flex;justify-content:center;align-items:flex-start}.beehiiv-form-inner{width:100%}.beehiiv-form-inner iframe{width:100%!important;max-width:470px!important;border:0!important;background:transparent!important}.beehiiv-form-inner input{background:transparent!important;color:var(--ink)!important;border:0!important;border-bottom:1px solid rgba(190,168,130,.28)!important;border-radius:0!important}.beehiiv-form-inner input::placeholder{color:var(--muted2)!important}.beehiiv-form-inner button{background:transparent!important;color:var(--amber)!important;border:0!important;border-radius:0!important;text-transform:uppercase!important;letter-spacing:.22em!important}
 .footer-bottom{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);width:min(1360px,90vw);display:flex;justify-content:space-between;gap:20px;padding-top:18px;border-top:1px solid var(--hair);font-size:10px;letter-spacing:.1em;color:var(--muted2)}
 .footer-links{display:flex;gap:clamp(16px,2vw,28px);flex-wrap:wrap}
 .footer-links a{transition:color .4s var(--ease)}
@@ -389,14 +334,14 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible}
     <a href="#markets" data-spy="markets">Markets</a>
     <a href="#thesis" data-spy="thesis">Thesis</a>
     <a href="#contact" data-spy="contact">House</a>
-    <a href="#contact">Contact</a>
+    <a href="mailto:yash.work@gmail.com">Contact</a>
     <a class="header-cta" href="research.html">Read Research →</a>
   </nav>
   <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
 </header>
 
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-  <a href="research.html">Research</a><a href="#markets">Markets</a><a href="#thesis">Thesis</a><a href="#contact">House</a><a href="#contact">Contact</a>
+  <a href="research.html">Research</a><a href="#markets">Markets</a><a href="#thesis">Thesis</a><a href="#contact">House</a><a href="mailto:yash.work@gmail.com">Contact</a>
 </div>
 
 <main>
@@ -484,13 +429,6 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible}
           <h3>Research &amp; Insights</h3>
           <a class="link-amber" href="research.html">View all research <span class="arw" aria-hidden="true">→</span></a>
         </div>
-        <div class="research-signup-box reveal">
-          <div class="research-signup-copy">
-            <div class="research-signup-title">Sign up for our newsletter</div>
-            <div class="research-signup-text">Get access to our latest edition, along with new Vesara research and insights.</div>
-          </div>
-          <a class="link-amber" href="#contact">Subscribe <span class="arw" aria-hidden="true">→</span></a>
-        </div>
 
         <div class="research-list">
           <a class="research-row reveal" href="report-july-2026.html">
@@ -563,12 +501,7 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible}
       <div class="footer-newsletter reveal">
         <span class="newsletter-eyebrow">VESARA RESEARCH LETTER</span>
         <p>Occasional market research, delivered quietly.</p>
-        <form class="newsletter-form" id="newsletterForm" action="https://script.google.com/macros/s/AKfycbzDLkOTG94d0RPPCP6Q6j8gkwuimFS1gYfNrvmFt_dMVsdTq8ie_4uIcZZXJR169MVE/exec" method="POST" target="newsletterFrame">
-          <input type="email" name="email" placeholder="Your email address" aria-label="Your email address" required autocomplete="email">
-          <button type="submit">SUBSCRIBE <span aria-hidden="true">→</span></button>
-        </form>
-        <iframe name="newsletterFrame" id="newsletterFrame" title="Newsletter submission" style="display:none;"></iframe>
-        <div class="newsletter-status" id="newsletterStatus" role="status" aria-live="polite"></div>
+        <div class="beehiiv-form-wrap" id="beehiivForm"><div class="beehiiv-form-inner" data-beehiiv-form="b93ecd9d-6e1b-45fe-b1ea-be7c48d9d281"></div></div>
       </div>
       <div class="footer-social reveal">
         <a href="https://www.instagram.com/invest.ysk/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
@@ -586,7 +519,7 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible}
         </a>
       </div>
     </div>
-    <div class="footer-bottom"><div class="footer-links"><a href="#research">Research</a><a href="#markets">Markets</a><a href="#thesis">Thesis</a><a href="#contact">House</a><a href="#contact">Contact</a><a href="#">Legal</a><a href="#">Privacy</a></div><div>© 2026 Vesara Capital. All rights reserved.</div></div>
+    <div class="footer-bottom"><div class="footer-links"><a href="#research">Research</a><a href="#markets">Markets</a><a href="#thesis">Thesis</a><a href="#contact">House</a><a href="mailto:yash.work@gmail.com">Contact</a><a href="#">Legal</a><a href="#">Privacy</a></div><div>© 2026 Vesara Capital. All rights reserved.</div></div>
   </section>
 </main>
 
@@ -668,33 +601,6 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible}
     }); }, {passive:true});
   });
 
-  /* ===================== NEWSLETTER ===================== */
-  var newsletterForm=document.getElementById('newsletterForm');
-  var newsletterStatus=document.getElementById('newsletterStatus');
-  if(newsletterForm){
-    newsletterForm.addEventListener('submit',function(e){
-      if(!newsletterForm.checkValidity()) return;
-      newsletterStatus.textContent='Sending…';
-      var button=newsletterForm.querySelector('button');
-      var input=newsletterForm.querySelector('input');
-      button.disabled=true;
-      var frame=document.getElementById('newsletterFrame');
-      var submittedAt=Date.now();
-      frame.onload=function(){
-        if(Date.now()-submittedAt>150){
-          newsletterStatus.textContent="Thank you. You're on the list.";
-          input.value='';
-          button.disabled=false;
-        }
-      };
-      setTimeout(function(){
-        newsletterStatus.textContent="Thank you. You're on the list.";
-        input.value='';
-        button.disabled=false;
-      },900);
-    });
-  }
-
   /* ===================== LIVE MARKET DATA =====================
      Best-effort client-side feed (Yahoo Finance via CORS-proxy chain).
      Each card keeps its seed and is honestly marked illustrative on failure.
@@ -765,5 +671,6 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible}
   }, {passive:true});
 })();
 </script>
+<script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="b93ecd9d-6e1b-45fe-b1ea-be7c48d9d281"></script>
 </body>
 </html>
